@@ -9,6 +9,7 @@
   },
   "keywords": [],
   "author": "",
+  "proxy": "http://localhost:8080/",
   "license": "ISC",
   "dependencies": {
     "parcel": "^1.12.4",
