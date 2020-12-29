@@ -1,0 +1,43 @@
+const [user, host, database, password, port] = require('../settings');
+
+const { Sequelize, Model, DataTypes } = require('sequelize');
+
+const sequelize = new Sequelize(database, user, password, {
+    host,
+    port,
+    dialect: 'postgres',
+    logging: false
+  })
+
+const Event = sequelize.define('events', {
+    date: {
+        type: DataTypes.DATE,
+        allowNull: false
+    },
+
+    title: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+
+    description: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    organizer: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    creatorId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    }
+}, {
+    freezeTableName: true, 
+    sequelize, 
+    modelName: 'events'
+})
+
+Event.sync({force: true});
+
+module.exports = Event;
