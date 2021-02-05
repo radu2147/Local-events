@@ -1,6 +1,6 @@
 const [user, host, database, password, port] = require('../settings');
 
-const { Sequelize, Model, DataTypes } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 
 const sequelize = new Sequelize(database, user, password, {
     host,
@@ -21,10 +21,6 @@ const Event = sequelize.define('events', {
     },
 
     description: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    organizer: {
         type: DataTypes.STRING,
         allowNull: false
     }

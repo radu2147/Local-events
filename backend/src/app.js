@@ -1,10 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser')
-const port = 8080;
+const port = 8079;
 
 const commRouter = require("./comm/router");
 const userRouter = require("./user/router");
+const eventRouter = require('./event/router');
+
+const [middleware, signin] = require('./auth');
 
 const app = express();
 
@@ -13,10 +16,13 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 // parse application/json
 app.use(bodyParser.json())
-app.get('/test', (req, res) => {
+app.get('/test', [middleware], (req, res) => {
     res.status(200).send({message: "Hello World!"});
 })
+app.get('/signin', signin);
 
-app.use('/api', userRouter);
+app.use('/api/users', userRouter);
+app.use('/api/comms', commRouter);
+app.use('/api/events', eventRouter);
 
 module.exports = [app, port];

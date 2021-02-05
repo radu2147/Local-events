@@ -26,6 +26,10 @@ User.init({
     modelName: "users"
 })
 
+User.checkPassword = (pass1, pass) => {
+    return pass === pass1;
+}
+
 User.sync();
 
 module.exports = User;

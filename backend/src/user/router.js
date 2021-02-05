@@ -3,7 +3,7 @@ const controllers = require("./controllers");
 
 const router = Router();
 
-router.get('/users/get', async (req, res) => {
+router.get('/get', async (req, res) => {
     try{
         let all = await controllers.getAll();
         res.status(200).send(all);
@@ -14,7 +14,7 @@ router.get('/users/get', async (req, res) => {
     }
 });
 
-router.get('/users/get/:id', async (req, res) => {
+router.get('/get/:id', async (req, res) => {
     try{
         let all = await controllers.getById(req.params.id);
         res.status(200).send(all);
@@ -25,7 +25,7 @@ router.get('/users/get/:id', async (req, res) => {
     }
 });
 
-router.post('/users/post', async (req, res) => {
+router.post('/create', async (req, res) => {
     try{
         let all = await controllers.create({
             username: req.body.username, 
@@ -39,7 +39,7 @@ router.post('/users/post', async (req, res) => {
     }
 });
 
-router.delete('/users/delete/:id', async (req, res) => {
+router.delete('/delete/:id', async (req, res) => {
     try{
         let all = await controllers.delete(req.params.id);
         res.status(200).send(all);
@@ -50,7 +50,7 @@ router.delete('/users/delete/:id', async (req, res) => {
     }
 })
 
-router.put('/users/update', async(req, res) => {
+router.put('/update', async(req, res) => {
     try{
         let all = await controllers.update(req.body);
         res.status(200).send(all);
