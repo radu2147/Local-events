@@ -1,6 +1,8 @@
 const [user, host, database, password, port] = require('../settings');
 
 const { Sequelize, Model, DataTypes } = require('sequelize');
+const User = require('../user/models');
+const Event = require('../event/model');
 
 const sequelize = new Sequelize(database, user, password, {
     host,
@@ -13,10 +15,6 @@ const sequelize = new Sequelize(database, user, password, {
 class Comms extends Model{}
 
 Comms.init({
-    username: {
-        allowNull: false,
-        type: DataTypes.STRING
-    },
     text: {
         type: DataTypes.TEXT,
         allowNull: false
@@ -24,6 +22,20 @@ Comms.init({
     date: {
         allowNull: false,
         type: DataTypes.DATE
+    },
+    eventid: {
+        type: DataTypes.BIGINT,
+        references:{
+            model: Event,
+            key: 'id'
+        }
+    },
+    userid:{
+        type: DataTypes.BIGINT,
+        references:{
+            model: User,
+            key: 'id'
+        }
     }
 }, 
 {
@@ -31,6 +43,6 @@ Comms.init({
     sequelize, 
     modelName: "comms"})
 
-Comms.sync({force: true});
+Comms.sync();
 
 module.exports = Comms;

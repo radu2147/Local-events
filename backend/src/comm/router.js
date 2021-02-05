@@ -16,6 +16,7 @@ router.get('/comms/get', async (req, res) => {
     }
 })
 
+
 router.get('/comms/:id', async (req, res) => {
     try{
         let all = await controllers.getById(req.params.id);
@@ -27,7 +28,7 @@ router.get('/comms/:id', async (req, res) => {
     }
 })
 
-router.post('/create', async (req, res) => {
+router.post('/comms/create', async (req, res) => {
     console.log(req.body)
     try{
         await controllers.create({
@@ -44,9 +45,21 @@ router.post('/create', async (req, res) => {
     }
 })
 
-router.delete('/delete/:id', async (req, res) => {
+router.delete('/comms/delete/:id', async (req, res) => {
     try{
-        await controllers.delete(req.params.id)
+        let x = await controllers.delete(req.params.id);
+        res.status(200).send(x);
+    }
+    catch(e){
+        console.error(e);
+        res.status(404).send({code: 404})
+    }
+});
+
+router.put('/comms/update', async (req, res) => {
+    try{
+        let x = await controllers.update(req.body);
+        res.status(200).send(x);
     }
     catch(e){
         console.error(e);

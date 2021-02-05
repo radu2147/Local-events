@@ -36,15 +36,4 @@ UserEvents.init({
 
 UserEvents.sync({force: true});
 
-const init = () => {
-    Event.hasMany(Comms, {as: 'comments'});
-    Comms.belongsTo(Event, {
-        foreignKey: 'eventId',
-        as: 'event'
-    })
-
-    Event.belongsToMany(User, {through: UserEvents, as: 'groups', foreignKey: 'eventId' });
-    User.belongsToMany(Event, {through: UserEvents, as: 'groups', foreignKey: 'userId' });
-}
-
 module.exports = init;

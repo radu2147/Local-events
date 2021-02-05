@@ -4,8 +4,7 @@ const bodyParser = require('body-parser')
 const port = 8080;
 
 const commRouter = require("./comm/router");
-const {Sequelize} = require('sequelize');
-const init = require('./relationInit');
+const userRouter = require("./user/router");
 
 const app = express();
 
@@ -18,9 +17,6 @@ app.get('/test', (req, res) => {
     res.status(200).send({message: "Hello World!"});
 })
 
-app.use('/api', commRouter);
-
-
-init();
+app.use('/api', userRouter);
 
 module.exports = [app, port];

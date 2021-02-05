@@ -27,10 +27,6 @@ const Event = sequelize.define('events', {
     organizer: {
         type: DataTypes.STRING,
         allowNull: false
-    },
-    creatorId: {
-        type: DataTypes.INTEGER,
-        allowNull: false
     }
 }, {
     freezeTableName: true, 
@@ -38,6 +34,6 @@ const Event = sequelize.define('events', {
     modelName: 'events'
 })
 
-Event.sync({force: true});
+Event.sync();
 
 module.exports = Event;

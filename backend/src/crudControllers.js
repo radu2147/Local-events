@@ -6,11 +6,14 @@ const deleteObject = model => async(id) => {
     await obj.destroy();
 }
 
+const updateObject = model => async(obj) => await model.update(obj, {where: {id: obj.id}});
+
 module.exports = function(model){
     return{
         getAll: getAll(model),
         getById: getById(model),
         create: insertObject(model),
-        delete: deleteObject(model)
+        delete: deleteObject(model),
+        update: updateObject(model)
     }
 }

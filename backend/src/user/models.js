@@ -1,7 +1,6 @@
 const [user, host, database, password, port] = require('../settings');
 
 const { Sequelize, Model, DataTypes } = require('sequelize');
-const Event = require('../event/model');
 
 const sequelize = new Sequelize(database, user, password, {
     host,
@@ -22,11 +21,11 @@ User.init({
         allowNull:false
     }
 },{
-    freezeTableName: true,
     sequelize,
-    modelName: "user"
+    freezeTableName: true,
+    modelName: "users"
 })
 
-User.sync({force: true});
+User.sync();
 
 module.exports = User;
