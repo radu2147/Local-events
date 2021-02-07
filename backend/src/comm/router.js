@@ -32,9 +32,10 @@ router.post('/create', async (req, res) => {
     console.log(req.body)
     try{
         await controllers.create({
-            username: req.body.username,
             text: req.body.text,
-            date: new Date(Date.now())
+            date: new Date(Date.now()),
+            userid: req.body.userid,
+            eventid: req.body.eventid
         })
         let all = await controllers.getAll(req.params.id);
         res.status(200).send(all);

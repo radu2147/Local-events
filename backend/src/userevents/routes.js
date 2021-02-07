@@ -1,37 +1,23 @@
 const { Router } = require("express");
+const controllers = require("./controller");
 
 const router = Router();
-const controllers = require('./controllers');
 
-router.get('/get', async(req, res) => {
+
+router.get('/get', async (req, res) => {
     try{
         let all = await controllers.getAll();
         res.status(200).send(all);
     }
     catch(e){
         console.error(e);
-        res.status(404).send({response: "fail"});
+        res.status(400).send({response: 'fail'});
     }
 });
 
-router.get('/get/:id', async(req, res) => {
+router.get('/get/:id', async (req, res) => {
     try{
         let all = await controllers.getById(req.params.id);
-        res.status(200).send(all);
-    }
-    catch(e){
-        console.error(e);
-        res.status(404).send({response: "fail"});
-    }
-});
-
-router.post('/create', async (req, res) => {
-    try{
-        let all = await controllers.create({
-            title: req.body.title, 
-            description: req.body.description,
-            date: new Date(Date.now())
-        });
         res.status(200).send(all);
     }
     catch(e){
@@ -49,7 +35,7 @@ router.delete('/delete/:id', async (req, res) => {
         console.error(e);
         res.status(400).send({response: 'fail'});
     }
-})
+});
 
 router.put('/update', async(req, res) => {
     try{
@@ -60,8 +46,20 @@ router.put('/update', async(req, res) => {
         console.error(e);
         res.status(400).send({response: 'fail'});
     }
-})
+});
 
-
+router.post('/create', async (req, res) => {
+    try{
+        let all = await controllers.create({
+            userId: req.body.userId, 
+            eventId: req.body.eventId
+        });
+        res.status(200).send(all);
+    }
+    catch(e){
+        console.error(e);
+        res.status(400).send({response: 'fail'});
+    }
+});
 
 module.exports = router;

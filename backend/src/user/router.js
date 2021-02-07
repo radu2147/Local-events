@@ -48,7 +48,7 @@ router.delete('/delete/:id', async (req, res) => {
         console.error(e);
         res.status(400).send({response: 'fail'});
     }
-})
+});
 
 router.put('/update', async(req, res) => {
     try{
@@ -59,6 +59,6 @@ router.put('/update', async(req, res) => {
         console.error(e);
         res.status(400).send({response: 'fail'});
     }
-})
+});
 
 module.exports = router;

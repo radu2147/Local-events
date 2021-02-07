@@ -32,7 +32,6 @@ const verifyMiddleware = async function(req, res, next){
     try{
         let data = await verifyToken(token);
         req.user = (await User.findOne({where: {id: data.id}})).dataValues;
-        console.log(req.user);
     }
     catch(e){
         console.error(e);

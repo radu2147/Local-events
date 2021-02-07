@@ -1,8 +1,8 @@
 const { Sequelize, Model, DataTypes } = require("sequelize");
-const Comms = require("./comm/model");
-const Event = require("./event/model");
-const User = require("./user/models");
-const [user, host, database, password, port] = require('./settings');
+const Comms = require("../comm/model");
+const Event = require("../event/model");
+const User = require("../user/models");
+const [user, host, database, password, port] = require('../settings');
 
 const sequelize = new Sequelize(database, user, password, {
     host,
@@ -15,14 +15,14 @@ class UserEvents extends Model{}
 
 UserEvents.init({
     eventId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         references: {
             model: Event,
             key: 'id'
         }
     },
     userId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         references: {
             model: User,
             key: 'id'
@@ -34,6 +34,6 @@ UserEvents.init({
     modelName: 'userevents'
 })
 
-UserEvents.sync({force: true});
+UserEvents.sync();
 
-module.exports = init;
+module.exports = UserEvents;

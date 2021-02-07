@@ -6,6 +6,7 @@ const port = 8079;
 const commRouter = require("./comm/router");
 const userRouter = require("./user/router");
 const eventRouter = require('./event/router');
+const usereventrouter = require('./userevents/routes');
 
 const [middleware, signin] = require('./auth');
 
@@ -24,5 +25,6 @@ app.get('/signin', signin);
 app.use('/api/users', userRouter);
 app.use('/api/comms', commRouter);
 app.use('/api/events', eventRouter);
+app.use('/api/userevents', usereventrouter);
 
 module.exports = [app, port];
