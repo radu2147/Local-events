@@ -57,7 +57,7 @@ li a:hover{
 .event-card{
     display: grid;
     grid-template-rows: repeat(4, 1fr);
-    height: 350px;
+    height: 400px;
     width: 20vw;
     background-color: white;
     margin-top: 30px;
@@ -72,12 +72,57 @@ li a:hover{
 }
 
 .price{
-    background-color: #faebff;
-    justify-self: center;
+    background-color: 	#F8F8F8;
+    justify-self: start;
     border-radius: 25px;
     padding: 5px 15px;
+    margin-left: 15px;
     color: black;
     font-style:oblique;
+}
+
+.price-exists{
+    background-color:#90ee90;
+    justify-self: start;
+    border-radius: 25px;
+    padding: 5px 15px;
+    margin-left: 15px;
+    color: white;
+    font-style:oblique;
+}
+
+.presentation{
+    width: 100%;
+    height: auto;
+    filter: saturate(2) opacity(0.3);
+    flood-color: coral;
+}
+
+.background{
+    background: url('../static/bacau.jpg') repeat;
+    background-size: cover;
+}
+.front{
+    height: calc(0.5*100vw);
+    background-color: #ff7f50;
+    opacity: 0.7;
+    text-align: center;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    
+}
+.front .presentation-text{
+    color: white;
+    font-size: 70px;
+    opacity: 1;
+    margin: 10%;
+}
+
+@media screen and (max-width: 700px){
+    .front .presentation-text{
+        font-size: 50px;
+    }
 }
 
 .event-card:hover{
@@ -105,9 +150,14 @@ li a:hover{
 }
 
 #dropdown-basic-button{
-    background-color: #bddbff;
-    border-color: #bddbff;;
+    background-color: coral;
+    border-color: coral;
 }
+
+#dropdown-basic-button:focus{
+    box-shadow: none;
+}
+
 
 @media screen and (min-width: 600px){
     #auth{
@@ -129,10 +179,9 @@ li a:hover{
     grid-template-columns: repeat(10, 1fr);
     align-items: center;
 }
-#icon{
-    width: 35px;
-    height: 35px;
-    grid-column: 2 / 3;
+
+#logo img{
+    grid-column: 3 / 4;
 }
 .main{
     background-color: #FAFAFA;
@@ -149,11 +198,54 @@ li a:hover{
     padding-top: 50px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
 }
 
-@media screen and (max-width: 700px){
+@media screen and (max-width: 1050px){
+    .events{
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .event-card{
+        width: 30vw;
+    }
+    .event-card img{
+        width: 30vw;
+        height: 160px;
+    }
+    .save{
+        width: 30vw;
+    }
+}
+
+@media screen and (max-width: 800px){
     .events{
         grid-template-columns: repeat(2, 1fr);
+    }
+    .event-card{
+        width: 45vw;
+    }
+    .event-card img{
+        width: 45vw;
+        height: 180px;
+    }
+    .save{
+        width: 45vw;
+    }
+}
+
+@media screen and (max-width: 600px){
+    .events{
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .event-card{
+        width: 75vw;
+    }
+    .event-card img{
+        width: 75vw;
+        height: 200px;
+    }
+    .save{
+        width: 75vw;
     }
 }
 
@@ -173,5 +265,5 @@ li{
 }
 
 #auth li a:hover{
-    color: rgb(76,162,229);
+    color: coral;
 }

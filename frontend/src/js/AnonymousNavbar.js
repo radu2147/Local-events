@@ -17,8 +17,7 @@ const AnonymousNavbar = () => {
                 <li>
                     <a href="/">
                         <div id="logo">
-                            <img src={require("../../static/calendar.png")} id="icon"/>
-                            <div id="title">Evenimente locale</div>
+                            <img src={require('../../static/logo.png')} />
                         </div>
                     </a>
                 </li>
@@ -41,8 +40,7 @@ const AnonymousNavbar = () => {
                 <li>
                     <a href="/">
                         <div id="logo">
-                            <img src={require("../../static/calendar.png")} id="icon"/>
-                            <div id="title">Evenimente locale</div>
+                            <img src={require('../../static/logo.png')} />
                         </div>
                     </a>
                 </li>

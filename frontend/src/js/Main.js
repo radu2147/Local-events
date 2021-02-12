@@ -15,9 +15,9 @@ const Main = () => {
     return (
     <div className="main">
         <div className="events">
-            {users.map(e => <EventCard title={e.title} date={e.date} />)}
+            {users.map(e => <EventCard title={e.title} date={e.date} price={e.price}/>)}
         </div>
-        <div>Icons made by <a href="https://www.flaticon.com/authors/itim2101" title="itim2101">itim2101</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+        <div>Logo made by https://www.freelogodesign.org/</div>
     </div>
     )
 };

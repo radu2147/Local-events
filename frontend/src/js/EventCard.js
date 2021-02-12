@@ -1,10 +1,13 @@
 import React from "react";
 import * as Icon from "react-bootstrap-icons";
-import {formatDate, toDate} from "date-utils-2020";
+import {formatDate} from "date-utils-2020";
 
-const EventCard = ({title, date}) => {
+const EventCard = ({title, date, price}) => {
+
+    const mesaj = price === 0.0 ? "Gratis" : price + " RON";
+    const cssClass = price === 0.0 ? "price" : "price-exists";
+
     date = formatDate(date, "  W, dd-MM-yyyy, hh:mm");
-    console.log(date);
     return (
         <div className="event-card">
             <img className="alt" src={require('../../static/rabbit.jpg')}/>
@@ -20,8 +23,8 @@ const EventCard = ({title, date}) => {
             </div>
             <div className="save" >
                 
-                <div className="price">
-                    Free
+                <div className={cssClass}>
+                    {mesaj}
                 </div>
                 <a href="/">
                     <Icon.Heart color="red" size="25px"/>

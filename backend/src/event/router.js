@@ -30,7 +30,9 @@ router.post('/create', async (req, res) => {
         let all = await controllers.create({
             title: req.body.title, 
             description: req.body.description,
-            date: new Date(Date.now())
+            date: req.body.date,
+            price: req.body.price,
+            location: req.body.location
         });
         res.status(200).send(all);
     }

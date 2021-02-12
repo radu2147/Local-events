@@ -23,6 +23,15 @@ const Event = sequelize.define('events', {
     description: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+
+    location: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    price:{
+        type:DataTypes.FLOAT,
+        defaultValue: 0.0,
     }
 }, {
     freezeTableName: true, 
