@@ -1,7 +1,9 @@
 const { Router } = require("express");
 
+const {parse} = require('url');
 const router = Router();
 const controllers = require('./controllers');
+const {Op} = require('sequelize');
 
 router.get('/get', async(req, res) => {
     try{
@@ -24,6 +26,19 @@ router.get('/get/:id', async(req, res) => {
         res.status(404).send({response: "fail"});
     }
 });
+
+router.get('/filter', async(req, res) => {
+    try{
+        let url = parse(req.url, true);
+        let data = url.query;
+        let all = await controllers.filter({title:{[Op.substring]: data.title}});
+
+        res.status(200).send(all);
+    }
+    catch(e){
+        console.error(e);
+    }
+})
 
 router.post('/create', async (req, res) => {
     try{

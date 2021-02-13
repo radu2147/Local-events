@@ -201,6 +201,16 @@ li a:hover{
     justify-items: center;
 }
 
+input {
+    border-color: grey;
+}
+
+.filter{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 @media screen and (max-width: 1050px){
     .events{
         grid-template-columns: repeat(3, 1fr);

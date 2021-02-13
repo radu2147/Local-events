@@ -6,6 +6,12 @@ const deleteObject = model => async(id) => {
     await obj.destroy();
 }
 
+const filterAll = model => async(obj) => (
+    await model.findAll({
+        where: obj
+    })
+)
+
 const updateObject = model => async(obj) => await model.update(obj, {where: {id: obj.id}});
 
 module.exports = function(model){
@@ -14,6 +20,7 @@ module.exports = function(model){
         getById: getById(model),
         create: insertObject(model),
         delete: deleteObject(model),
-        update: updateObject(model)
+        update: updateObject(model),
+        filter: filterAll(model)
     }
 }
