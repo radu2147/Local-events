@@ -195,20 +195,44 @@ li a:hover{
 }
 
 .events{
-    padding-top: 50px;
+    padding-top: 15px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     justify-items: center;
 }
 
+.filter-inputs{
+    display: grid;
+    width: 75%;
+    grid-gap: 20px;
+    grid-template-columns: repeat(4, 1fr);
+}
+
 input {
-    border-color: grey;
+    border-color: whitesmoke;
+    border-radius: 5px;
+    border-style:solid;
+    padding: 5px;
+    
+}
+
+
+select{
+    padding: 7px;
+}
+
+select{
+    border-color: whitesmoke;
+    border-radius: 5px;
+    border-style:solid;
 }
 
 .filter{
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-left: 2.5vw;
+    padding-top: 25px;
 }
 
 @media screen and (max-width: 1050px){
@@ -217,6 +241,9 @@ input {
     }
     .event-card{
         width: 30vw;
+    }
+    .filter{
+        margin-left: 1.33vw;
     }
     .event-card img{
         width: 30vw;
@@ -234,6 +261,10 @@ input {
     .event-card{
         width: 45vw;
     }
+    .filter{
+        margin-left: 2.5vw;
+    }
+
     .event-card img{
         width: 45vw;
         height: 180px;
@@ -249,6 +280,9 @@ input {
     }
     .event-card{
         width: 75vw;
+    }
+    .filter{
+        margin-left: 12.5vw;
     }
     .event-card img{
         width: 75vw;
