@@ -12,13 +12,13 @@ const Main = () => {
 
     useEffect(() => {
         let url;
-        const fil = filter === "" ? "" : "title=" + filter;
-        const pr = pret === "Toate" ? "" : "price=" + pret;
+        const fil = filter === "" ? "" : "title=" + filter + "&";
+        const pr = pret === "Toate" ? "" : "price=" + pret + "&";
         const tm = time === "Toate" ? "" : "time=" + time;
 
-        const obj = fil + "&" + pr + "&" + tm;
+        const obj = fil + pr + tm;
 
-        if(filter === '')
+        if(obj === '&&')
             url = 'http://localhost:8079/api/events/get';
         else
             url = 'http://localhost:8079/api/events/filter?' + obj;
@@ -71,16 +71,13 @@ const Main = () => {
                             Astazi
                         </option>
                         <option>
-                            Maine
+                            Saptamana aceasta
                         </option>
                         <option>
-                            Sapt. viitoare
+                            Luna aceasta
                         </option>
                         <option>
-                            Luna viitoare
-                        </option>
-                        <option>
-                            Restul
+                            Mai tarziu
                         </option>
 
                     </select>
@@ -91,7 +88,7 @@ const Main = () => {
         <div className="events">
             {events.map(e => <EventCard title={e.title} date={e.date} price={e.price}/>)}
         </div>
-        <div>Logo made by https://www.freelogodesign.org/</div>
+        
     </div>
     )
 };

@@ -208,6 +208,7 @@ li a:hover{
     grid-template-columns: repeat(4, 1fr);
 }
 
+
 input {
     border-color: whitesmoke;
     border-radius: 5px;
@@ -320,6 +321,10 @@ select{
     }
     .filter{
         margin-left: 12.5vw;
+    }
+
+    .filter-inputs{
+        grid-template-columns: repeat(2, 1fr);
     }
     .event-card img{
         width: 75vw;

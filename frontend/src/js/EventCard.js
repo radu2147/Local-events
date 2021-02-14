@@ -7,6 +7,8 @@ const EventCard = ({title, date, price}) => {
     const mesaj = price === 0.0 ? "Gratis" : price + " RON";
     const cssClass = price === 0.0 ? "price" : "price-exists";
 
+    console.log(date);
+
     date = formatDate(date, "  W, dd-MM-yyyy, hh:mm");
     return (
         <div className="event-card">
