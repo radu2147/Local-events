@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import AnonymousNavbar from "./AnonymousNavbar";
 import Main from "./Main";
 import Presentation from "./Presentation";
+import Footer from './Footer';
 
 const App = () => {
     return (
@@ -10,6 +11,7 @@ const App = () => {
             <AnonymousNavbar />
             <Presentation />
             <Main />
+            <Footer />
         </div>
     )
 }

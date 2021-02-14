@@ -31,7 +31,20 @@ router.get('/filter', async(req, res) => {
     try{
         let url = parse(req.url, true);
         let data = url.query;
-        let all = await controllers.filter({title:{[Op.substring]: data.title}});
+        let priceObj = {};
+        if(data.price === 'Gratis'){
+            priceObj = 0;
+            console.log(priceObj);
+        }
+        else if(data.price === 'Cu plata'){
+            priceObj = {[Op.gt] : 0};
+        }
+        let final = {title:{[Op.substring]: data.title}};
+        if(data.price === 'Gratis' || data.price === 'Cu plata'){
+            final.price = priceObj;
+        }
+        console.log(final);
+        let all = await controllers.filter(final);
 
         res.status(200).send(all);
     }

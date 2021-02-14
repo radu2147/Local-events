@@ -8,14 +8,16 @@ const Main = () => {
     const [pret, setPret] = useState("Toate");
     const [time, setTime] = useState("Toate");
 
-    const fil = filter === "" ? "" : "title=" + filter;
-    const pr = pret === "Toate" ? "" : "pret=" + pret;
-    const tm = time === "Toate" ? "" : "time=" + time;
-
-    const obj = fil + "&" + pr + "&" + tm;
+    
 
     useEffect(() => {
         let url;
+        const fil = filter === "" ? "" : "title=" + filter;
+        const pr = pret === "Toate" ? "" : "price=" + pret;
+        const tm = time === "Toate" ? "" : "time=" + time;
+
+        const obj = fil + "&" + pr + "&" + tm;
+
         if(filter === '')
             url = 'http://localhost:8079/api/events/get';
         else
