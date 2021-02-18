@@ -353,3 +353,74 @@ li{
 #auth li a:hover{
     color: coral;
 }
+
+.main-canvas{
+    background-color: #FAFAFA;
+}
+
+.auth-form{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 15px;
+    justify-items: center;
+    align-items: center;
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+
+.auth-form input{
+    width: 394px;
+}
+
+.auth-form  > button{
+    width: 394px;
+}
+
+.auth-form hr {
+    border: 0;
+    clear:both;
+    display:block;
+    width: 394px;               
+    background-color:#E1E1E1;
+    height: 1px;
+}
+
+.theme-text{
+    color: coral;
+}
+
+.auth-btn{
+    padding: 5px;
+    border-style: none;
+    font-size: 19px;
+}
+
+.auth-btn:hover{
+    filter: saturate(0.85);
+}
+
+.login{
+    background-color: coral;
+    color: white;
+}
+
+.facebook{
+    background-color: #3B5998;
+    color: white;
+}
+
+.mesaj{
+    text-align: center;
+    padding-bottom: 45px;
+}
+
+.input-login{
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    align-items:center;
+}
+
+.error-text{
+    color:red;
+    font-size: 13px;
+}
