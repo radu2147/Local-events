@@ -1,21 +1,39 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import AnonymousNavbar from "./AnonymousNavbar";
 import Main from "./Main";
 import Presentation from "./Presentation";
 import Footer from './Footer';
 import LoginComponent from './LoginComponent';
 import RegisterComponent from './RegisterComponent';
 import {Route, BrowserRouter as Router, Switch} from "react-router-dom";
+import UserContext from "./UserContext";
+import { useState } from "react";
+import Navbar from "./Navbar";
+import { decodeToken, isExpired } from "react-jwt";
 
 const App = () => {
+
+    let value;
+    if(!isExpired(window.localStorage.getItem('token'))){
+        value = decodeToken(window.localStorage.getItem('token'));
+    } 
+    else if(window.localStorage.getItem('token') !== null){
+        window.localStorage.clear();
+        alert("Your session has expired");
+    } 
+    const [user, setUser] = useState(value);
+
     return (
         <Router>
             <div>
-                <AnonymousNavbar />
+                <UserContext.Provider value={[user,setUser]}>
+                    <Navbar />
+                </UserContext.Provider>
                 <Switch>
                     <Route path="/login">
-                        <LoginComponent />
+                        <UserContext.Provider value={[user,setUser]}>
+                            <LoginComponent />
+                        </UserContext.Provider>
                     </Route>
                     <Route path="/register">
                         <RegisterComponent />

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {Dropdown, DropdownButton} from "react-bootstrap";import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } from "react-router-dom";
 
 const UserNavbar = ({username}) => {
     const [mobile, setMobile] = useState(window.innerWidth);
@@ -10,17 +11,21 @@ const UserNavbar = ({username}) => {
         window.addEventListener('resize', handleSize);
     }, [setMobile]);
 
+    const logout = () => {
+        window.localStorage.clear();
+    }
+
     
     if(mobile < 600){
         return (
         <div id="navbar">
             <div id="name">
                 <li>
-                    <a href="/">
+                    <Link to="/">
                         <div id="logo">
                             <img src={require('../../static/logo.png')} />
                         </div>
-                    </a>
+                    </Link>
                 </li>
                 
             </div>
@@ -39,21 +44,21 @@ const UserNavbar = ({username}) => {
         <div id="navbar">
             <div id="name">
                 <li>
-                    <a href="/">
+                    <Link to="/">
                         <div id="logo">
                             <img src={require('../../static/logo.png')} />
                         </div>
-                    </a>
+                    </Link>
                 </li>
             </div>
             <div id="auth">
                 <li>
-                    <a href="/login">
+                    <Link to="/">
                         {username}
-                    </a>
+                    </Link>
                 </li>
                 <li>
-                    <a href="/register">
+                    <a href="/" onClick={logout}>
                         Log out
                     </a>
                 </li>
