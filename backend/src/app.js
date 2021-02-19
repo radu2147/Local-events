@@ -8,7 +8,7 @@ const userRouter = require("./user/router");
 const eventRouter = require('./event/router');
 const usereventrouter = require('./userevents/routes');
 
-const [middleware, signin] = require('./auth');
+const [middleware, signin, extendAccess] = require('./auth');
 
 const app = express();
 
@@ -20,7 +20,8 @@ app.use(bodyParser.json())
 app.get('/test', [middleware], (req, res) => {
     res.status(200).send({message: "Hello World!"});
 })
-app.get('/signin', signin);
+app.post('/signin', signin);
+app.post('/extend-access', extendAccess);
 
 app.use('/api/users', userRouter);
 app.use('/api/comms', commRouter);

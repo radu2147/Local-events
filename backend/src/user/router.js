@@ -35,7 +35,7 @@ router.post('/create', async (req, res) => {
     }
     catch(e){
         console.error(e);
-        res.status(400).send({response: 'fail'});
+        res.status(400).send({response: 'user already exists'});
     }
 });
 

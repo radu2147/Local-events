@@ -1,9 +1,9 @@
 const jwt = require("jsonwebtoken");
 const User = require("./user/models");
 
-const newToken = user => {
-    return jwt.sign({ id: user.id }, 'secrets', {
-        expiresIn: 360
+const newToken = ({id, username}) => {
+    return jwt.sign({ id, username }, 'secrets', {
+        expiresIn: 60
     });
 };
 
@@ -43,7 +43,7 @@ const verifyMiddleware = async function(req, res, next){
 
 const signin = async (req, res) => {
     if(!req.body.username || !req.body.password){
-        res.status(401).send({response: 'fail'});
+        res.status(401).send({response: 'no username or password'});
         return;
     }
     try{
@@ -61,4 +61,21 @@ const signin = async (req, res) => {
     
 }
 
-module.exports = [verifyMiddleware, signin];
+const extendAccess = async (req, res) => {
+    if(!req.headers.authorization){
+        res.status(404).send({response: "no token"});
+        return;
+    }
+    try{
+        let user = await verifyToken(req.headers.authorization);
+        let refreshedToken = newToken(user);
+        res.status(200).send({token: refreshedToken});
+
+    }
+    catch(e){
+        console.error(e);
+        res.status(401).send({response: 'invalid token'});
+    }
+}
+
+module.exports = [verifyMiddleware, signin, extendAccess];

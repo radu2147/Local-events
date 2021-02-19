@@ -40,6 +40,7 @@ const priceObjectCreator = (price) => {
 }
 
 const timeObjectGenerator = (time) => {
+    const a = new DateTime();
     if(time === 'Astazi'){
         return {[Op.gte]: DateTime.today().toString(),
                 [Op.lt]: DateTime.today().plusDays(1).toString()
@@ -47,14 +48,19 @@ const timeObjectGenerator = (time) => {
     }
     if(time === 'Saptamana aceasta'){
         return {
-            [Op.gte]: DateTime.DateTime.getFirstDateOfWeek().toString(),
-            [Op.lt]: DateTime.DateTime.getFirstDateOfWeek().plusDays(7).toString()
+            [Op.gte]: a.getFirstDateOfWeek().toString(),
+            [Op.lt]: a.getFirstDateOfWeek().plusDays(7).toString()
         }
     }
     if(time === 'Luna aceasta'){
         return {
-            [Op.gte]: DateTime.DateTime.firstDateOfMonth().toString(),
-            [Op.lt]: DateTime.DateTime.lastDateOfMonth().toString()
+            [Op.gte]: a.firstDateOfMonth().toString(),
+            [Op.lt]: a.lastDateOfMonth().toString()
+        }
+    }
+    else{
+        return {
+            [Op.gt]: a.lastDateOfMonth().toString(),
         }
     }
 }
@@ -63,7 +69,7 @@ router.get('/filter', async(req, res) => {
     try{
         let url = parse(req.url, true);
         let data = url.query;
-        let final = {}
+        let final = {};
 
         if(data.title)
             final.title = {[Op.substring]: data.title};
@@ -74,7 +80,7 @@ router.get('/filter', async(req, res) => {
         if(data.price === 'Gratis' || data.price === 'Cu plata'){
             final.price = priceObjectCreator(data.price);
         }
-        console.log(final);
+        
         let all = await controllers.filter(final);
 
         res.status(200).send(all);
