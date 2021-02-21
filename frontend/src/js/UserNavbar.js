@@ -21,19 +21,19 @@ const UserNavbar = ({username}) => {
         <div id="navbar">
             <div id="name">
                 <li>
-                    <Link to="/">
+                    <a href="/">
                         <div id="logo">
                             <img src={require('../../static/logo.png')} />
                         </div>
-                    </Link>
+                    </a>
                 </li>
                 
             </div>
             <div id="auth">
                 <div class="drop">
                     <DropdownButton id="dropdown-basic-button" title="">
-                        <Dropdown.Item href="#/action-1">{username}</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">Log out</Dropdown.Item>
+                        <Dropdown.Item href="/profile/saved">{username}</Dropdown.Item>
+                        <Dropdown.Item href="/" onClick={logout}>Log out</Dropdown.Item>
                     </DropdownButton>
                 </div>
             </div>
@@ -44,18 +44,18 @@ const UserNavbar = ({username}) => {
         <div id="navbar">
             <div id="name">
                 <li>
-                    <Link to="/">
+                    <a href="/">
                         <div id="logo">
                             <img src={require('../../static/logo.png')} />
                         </div>
-                    </Link>
+                    </a>
                 </li>
             </div>
             <div id="auth">
                 <li>
-                    <Link to="/">
+                    <a href="/profile/saved">
                         {username}
-                    </Link>
+                    </a>
                 </li>
                 <li>
                     <a href="/" onClick={logout}>

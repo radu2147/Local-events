@@ -5,7 +5,7 @@
 }
 
 #navbar{
-    height: 100px;
+    height: 150px;
     background-color: white;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -196,6 +196,7 @@ li a:hover{
 
 .events{
     padding-top: 15px;
+    min-height: 1000px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     justify-items: center;
@@ -209,7 +210,7 @@ li a:hover{
 }
 
 
-input {
+input, textarea {
     border-color: whitesmoke;
     border-radius: 5px;
     border-style:solid;
@@ -372,6 +373,10 @@ li{
     width: 394px;
 }
 
+.auth-form textarea{
+    width: 394px;
+}
+
 .auth-form  > button{
     width: 394px;
 }
@@ -423,4 +428,55 @@ li{
 .error-text{
     color:red;
     font-size: 13px;
+}
+
+.options{
+    background-color: coral;
+    height: 75px;
+    display: grid;
+    grid-template-columns: repeat(20, 1fr);
+    align-items: center;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+.options a{
+    color: white;
+}
+
+.options a:hover{
+    border-bottom: 3px solid white;
+    text-decoration: none;
+    color: white;
+}
+
+.options a:first-child{
+    grid-column: 3 / 4;
+}
+
+.options a:last-child{
+    grid-column: 5 / 8;
+}
+
+.target{
+    min-height: 600px;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+.elements{
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    align-items: center;
+}
+
+.elements a{
+    text-align: center;
+}
+
+.elements a:hover{
+    color: white;
+    text-decoration: none;
 }

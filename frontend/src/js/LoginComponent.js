@@ -8,7 +8,7 @@ const LoginComponent = () => {
 
     const [user, setUser] = useState("");
     const [pass, setPass] = useState("");
-    const [passCheck, setPassCheck] = useState("");
+    
 
 
     const [userError, setUserError] = useState("");

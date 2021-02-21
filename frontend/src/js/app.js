@@ -10,6 +10,7 @@ import UserContext from "./UserContext";
 import { useState } from "react";
 import Navbar from "./Navbar";
 import { decodeToken, isExpired } from "react-jwt";
+import Profile from "./Profile";
 
 const App = () => {
 
@@ -38,9 +39,16 @@ const App = () => {
                     <Route path="/register">
                         <RegisterComponent />
                     </Route>
+                    <Route path="/profile">
+                        <UserContext.Provider value={user} >
+                            <Profile />
+                        </UserContext.Provider>
+                    </Route>
                     <Route path="/">
                         <Presentation />
-                        <Main />
+                        <UserContext.Provider value={user} >
+                            <Main />
+                        </UserContext.Provider>
                     </Route>
                 </Switch>
                 

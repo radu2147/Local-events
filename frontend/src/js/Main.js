@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { useContext } from "react";
 import EventCard from "./EventCard";
+import UserContext from "./UserContext";
 
 const Main = () => {
 
@@ -7,6 +9,8 @@ const Main = () => {
     const [filter, setFilter] = useState("");
     const [pret, setPret] = useState("Toate");
     const [time, setTime] = useState("Toate");
+
+    const user = useContext(UserContext);
 
     
 
@@ -86,7 +90,7 @@ const Main = () => {
         </div>
         <hr/>
         <div className="events">
-            {events.map(e => <EventCard title={e.title} date={e.date} price={e.price}/>)}
+            {events.map(e => <EventCard id={e.id} title={e.title} date={e.date} price={e.price} user={user}/>)}
         </div>
         
     </div>

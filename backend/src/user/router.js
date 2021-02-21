@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const controllers = require("./controllers");
-
+const [verify,_,__] = require('../auth');
 const router = Router();
 
 router.get('/get', async (req, res) => {
@@ -24,6 +24,16 @@ router.get('/get/:id', async (req, res) => {
         res.status(400).send({response: 'fail'});
     }
 });
+
+router.get('/get-active', [verify], async(req, res) => {
+    try{
+        res.status(200).send(req.user);
+    }
+    catch(e){
+        console.error(e);
+        res.status(400).send({response: 'fail'});
+    }
+})
 
 router.post('/create', async (req, res) => {
     try{

@@ -1,6 +1,7 @@
 const [user, host, database, password, port] = require('../settings');
 
 const { Sequelize, DataTypes } = require('sequelize');
+const User = require('../user/models');
 
 const sequelize = new Sequelize(database, user, password, {
     host,
@@ -32,6 +33,14 @@ const Event = sequelize.define('events', {
     price:{
         type:DataTypes.FLOAT,
         defaultValue: 0.0,
+    },
+    userid:{
+        type:DataTypes.BIGINT,
+        defaultValue: 1,
+        references:{
+            model: User,
+            key: 'id'
+        }
     }
 }, {
     freezeTableName: true, 

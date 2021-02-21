@@ -3,7 +3,7 @@ const User = require("./user/models");
 
 const newToken = ({id, username}) => {
     return jwt.sign({ id, username }, 'secrets', {
-        expiresIn: 60
+        expiresIn: 3600
     });
 };
 

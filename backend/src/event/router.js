@@ -3,8 +3,10 @@ const { Router } = require("express");
 const {parse} = require('url');
 const router = Router();
 const controllers = require('./controllers');
+const usereventcontrollres = require('../userevents/controller');
 const {Op} = require('sequelize');
 const {DateTime} = require('dateutils');
+const [verifyMiddleware, _, __] = require('../auth');
 
 router.get('/get', async(req, res) => {
     try{
@@ -16,6 +18,25 @@ router.get('/get', async(req, res) => {
         res.status(404).send({response: "fail"});
     }
 });
+
+router.get('/get-saved-events', [verifyMiddleware], async(req, res) => {
+    try{
+        let final = {userId: req.user.id};
+        let saved = await usereventcontrollres.filter(final);
+        let all = []
+        for(const el in saved){
+            console.log(el);
+            let elem = await controllers.getById(el.eventId);
+            all.push(elem);
+        }
+        console.log(all);
+        res.status(200).send(all);
+    }
+    catch(e){
+        console.error(e);
+        res.status(400).send({response: 'fail'});
+    }
+})
 
 router.get('/get/:id', async(req, res) => {
     try{
@@ -80,6 +101,9 @@ router.get('/filter', async(req, res) => {
         if(data.price === 'Gratis' || data.price === 'Cu plata'){
             final.price = priceObjectCreator(data.price);
         }
+        if(data.userid){
+            final.userid = data.userid;
+        }
         
         let all = await controllers.filter(final);
 
@@ -90,13 +114,15 @@ router.get('/filter', async(req, res) => {
     }
 })
 
-router.post('/create', async (req, res) => {
+router.post('/create',[verifyMiddleware], async (req, res) => {
     try{
+        console.log(req.body, req.user);
         let all = await controllers.create({
             title: req.body.title, 
             description: req.body.description,
             date: req.body.date,
             price: req.body.price,
+            userid: req.user.id,
             location: req.body.location
         });
         res.status(200).send(all);
