@@ -25,11 +25,9 @@ router.get('/get-saved-events', [verifyMiddleware], async(req, res) => {
         let saved = await usereventcontrollres.filter(final);
         let all = []
         for(const el in saved){
-            console.log(el);
-            let elem = await controllers.getById(el.eventId);
+            let elem = await controllers.getById(saved[el].dataValues.eventId);
             all.push(elem);
         }
-        console.log(all);
         res.status(200).send(all);
     }
     catch(e){

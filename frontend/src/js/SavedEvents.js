@@ -5,6 +5,8 @@ const SavedEvents = ({ user }) => {
     const [loading, setLoading] = useState(false);
     const [events, setEvents] = useState([]);
 
+    console.log(user);
+
     useEffect(() => {
         fetch('http://localhost:8079/api/events/get-saved-events', {
             headers:{
@@ -36,7 +38,7 @@ const SavedEvents = ({ user }) => {
     return (
         <div className="main-canvas">
             <div className="events">
-                {events.map(e => <EventCard title={e.title} date={e.date} price={e.price}/>)}
+                {events.map(e => <EventCard id={e.id} title={e.title} date={e.date} price={e.price} user={user}/>)}
             </div>
         </div>
     )
