@@ -1,7 +1,7 @@
 import React from "react";
 import * as Icon from "react-bootstrap-icons";
 import {formatDate} from "date-utils-2020";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
 
@@ -57,29 +57,33 @@ const EventCard = ({id,title, date, price, user}) => {
     }
 
     date = formatDate(date, "  W, dd-MM-yyyy, hh:mm");
+    const path = '/event/' + id;
     return (
-        <div className="event-card">
-            <img className="alt" src={require('../../static/rabbit.jpg')}/>
-            <div className="small-description">
-                <div className="date">
-                    <Icon.Clock color="orange"/>
-                    {date}
-                </div>
-                <div className="title">
-                    {title}
-                </div>
+            <div className="event-card">
                 
-            </div>
-            <div className="save" >
-                
-                <div className={cssClass}>
-                    {mesaj}
-                </div>
-                <a href="/" onClick={save}>
-                    {savedid > 0 ? <Icon.HeartFill color="red" size="25px" /> :<Icon.Heart color="red" size="25px"/>}
+                <a href={path}>
+                    <img className="alt" src={require('../../static/rabbit.jpg')}/>
                 </a>
+                <div className="small-description">
+                    <div className="date">
+                        <Icon.Clock color="orange"/>
+                        {date}
+                    </div>
+                    <div className="title">
+                        {title}
+                    </div>
+                    
+                </div>
+                <div className="save" >
+                    
+                    <div className={cssClass}>
+                        {mesaj}
+                    </div>
+                    <a href={window.location.pathname} onClick={save}>
+                        {savedid > 0 ? <Icon.HeartFill color="red" size="25px" /> :<Icon.Heart color="red" size="25px"/>}
+                    </a>
+                </div>
             </div>
-        </div>
     )
 }
 

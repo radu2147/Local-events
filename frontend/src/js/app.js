@@ -11,6 +11,7 @@ import { useState } from "react";
 import Navbar from "./Navbar";
 import { decodeToken, isExpired } from "react-jwt";
 import Profile from "./Profile";
+import EventPage from "./EventPage";
 
 const App = () => {
 
@@ -31,6 +32,9 @@ const App = () => {
                     <Navbar />
                 
                     <Switch>
+                        <Route path="/event/:id">
+                            <EventPage />
+                        </Route>
                         <Route path="/login">
                             <LoginComponent />
                         </Route>
@@ -40,6 +44,7 @@ const App = () => {
                         <Route path="/profile">
                             <Profile />
                         </Route>
+                        
                         <Route path="/">
                             <Presentation />
                             <Main />
