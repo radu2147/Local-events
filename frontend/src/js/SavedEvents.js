@@ -17,7 +17,7 @@ const SavedEvents = ({ user }) => {
             setEvents(e);
             setLoading(false);
         });
-    },[setEvents])
+    },[setEvents]);
 
     if(loading){
         return <h1>Loading...</h1>
