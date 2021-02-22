@@ -9,15 +9,13 @@ const MyEvents = ({ user }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const saved = [];
-        fetch('http://localhost:8079/api/userevents/filter?userid=' + user.id)
+        fetch('http://localhost:8079/api/events/filter?userid=' + user.id)
             .then(e => e.json())
             .then(e => {
-                saved = e;
+                setEvents(e);
+                setLoading(false);
             });
     }, [setEvents, setLoading]);
-
-    console.log(events);
 
     if(loading){
         return <h1>Loading...</h1>
@@ -37,7 +35,7 @@ const MyEvents = ({ user }) => {
     return (
         <div className="main-canvas">
             <div className="events">
-                {events.map(e => <EventCard title={e.title} date={e.date} price={e.price} user={user}/>)}
+                {events.map(e => <EventCard id={e.id} title={e.title} date={e.date} price={e.price} user={user}/>)}
             </div>
         </div>
     )
