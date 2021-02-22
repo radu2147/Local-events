@@ -10,7 +10,7 @@ const Main = () => {
     const [pret, setPret] = useState("Toate");
     const [time, setTime] = useState("Toate");
 
-    const user = useContext(UserContext);
+    const [user, _] = useContext(UserContext);
 
     
 

@@ -29,30 +29,25 @@ const App = () => {
             <div>
                 <UserContext.Provider value={[user,setUser]}>
                     <Navbar />
-                </UserContext.Provider>
-                <Switch>
-                    <Route path="/login">
-                        <UserContext.Provider value={[user,setUser]}>
-                            <LoginComponent />
-                        </UserContext.Provider>
-                    </Route>
-                    <Route path="/register">
-                        <RegisterComponent />
-                    </Route>
-                    <Route path="/profile">
-                        <UserContext.Provider value={user} >
-                            <Profile />
-                        </UserContext.Provider>
-                    </Route>
-                    <Route path="/">
-                        <Presentation />
-                        <UserContext.Provider value={user} >
-                            <Main />
-                        </UserContext.Provider>
-                    </Route>
-                </Switch>
                 
-                <Footer />
+                    <Switch>
+                        <Route path="/login">
+                            <LoginComponent />
+                        </Route>
+                        <Route path="/register">
+                            <RegisterComponent />
+                        </Route>
+                        <Route path="/profile">
+                            <Profile />
+                        </Route>
+                        <Route path="/">
+                            <Presentation />
+                            <Main />
+                        </Route>
+                    </Switch>
+                    
+                    <Footer />
+                </UserContext.Provider>
             </div>
         </Router>
     )

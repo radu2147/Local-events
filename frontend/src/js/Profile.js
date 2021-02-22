@@ -9,7 +9,7 @@ import UserContext from "./UserContext";
 import UserOptionsNavbar from "./UserOptionsNavbar";
 
 const Profile = () => {
-    const user = useContext(UserContext);
+    const [user, _] = useContext(UserContext);
     
     if(window.location.pathname === "/profile/saved"){
         return (
