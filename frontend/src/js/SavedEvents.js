@@ -5,12 +5,10 @@ const SavedEvents = ({ user }) => {
     const [loading, setLoading] = useState(false);
     const [events, setEvents] = useState([]);
 
-    console.log(user);
-
     useEffect(() => {
         fetch('http://localhost:8079/api/events/get-saved-events', {
             headers:{
-                "Content-type": "application/json",
+                "Content-Type": "application/json",
                 authorization: "Bearer " + window.localStorage.getItem('token')
             }
         })
