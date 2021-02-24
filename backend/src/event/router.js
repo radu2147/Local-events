@@ -151,7 +151,18 @@ router.put('/update', async(req, res) => {
         console.error(e);
         res.status(400).send({response: 'fail'});
     }
-})
+});
+
+router.get('/get-saved/:id', async(req, res) => {
+    try{
+        let all = await usereventcontrollres.filter({eventId: req.params.id});
+        res.status(200).send({savings: all.length});
+    }
+    catch(e){
+        console.error(e);
+        res.status(400).send({response: 'fail'});
+    }
+});
 
 
 

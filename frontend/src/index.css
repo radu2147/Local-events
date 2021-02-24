@@ -116,7 +116,19 @@ li a:hover{
     color: white;
     font-size: 70px;
     opacity: 1;
+    animation: typewriter 4s steps(44, end) forwards;
     margin: 10%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+@keyframes typewriter{
+    0%{
+        width: 0%;
+    }
+    100%{
+        width: 100%;
+    }
 }
 
 @media screen and (max-width: 700px){
@@ -215,6 +227,7 @@ input, textarea {
     border-radius: 5px;
     border-style:solid;
     padding: 5px;
+    white-space: pre-line;
     
 }
 
@@ -479,4 +492,100 @@ li{
 .elements a:hover{
     color: white;
     text-decoration: none;
+}
+
+.space-top{
+    padding-top: 50px;
+}
+
+.event-main{
+    display:grid;
+    margin-left:15vw;
+    margin-right: 15vw;
+    min-height:300px;
+    background-color: white;
+}
+
+.event-main img{
+    height: 28.84vw;
+    width: 45vw;
+}
+
+.event-page-card{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.event-page-small-description{
+    padding-top: 15px;
+    padding-left: 20px;
+    background-color: #444;
+    height: 28.84vw;
+    color: white;
+    font-size: 25px;
+    display:grid;
+    grid-template-rows: repeat(6, 1fr);
+}
+
+.event-page-small-description .date{
+    padding-left: 0px;
+    font-size: 15px;
+}
+
+.event-organizer{
+    font-size: 17px;
+    grid-row: 4 / 5;
+}
+
+.event-price{
+    grid-row: 6;
+    font-size: 18px;
+}
+
+.event-description{
+    padding-left: 35px;
+    display:flex;
+    flex-direction: row;
+    min-height: 500px;
+}
+
+.saved-by-other{
+    padding-left:20px;
+    padding-top: 10px;
+}
+
+.event-description-text{
+    width: 70%;
+}
+
+@media screen and (max-width: 600px){
+    .event-page-card{
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-columns: 1fr;
+    }
+
+    .event-main{
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .event-main img{
+        width: 80vw;
+        height: auto;
+    }
+
+    .event-page-small-description{
+        width: 80vw;
+        height: 78.56;
+    }
+    
+    .event-page-small-description .date{
+        padding-left: 0px;
+        font-size: 15px;
+    }
+    
+    .event-organizer{
+        font-size: 17px;
+        grid-row: 4 / 5;
+    }
 }
