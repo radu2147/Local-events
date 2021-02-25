@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import EventCard from "./EventCard";
+import Loading from "./Loading";
 
 const SavedEvents = ({ user }) => {
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [events, setEvents] = useState([]);
 
     useEffect(() => {
@@ -16,11 +17,11 @@ const SavedEvents = ({ user }) => {
         .then(e => {
             setEvents(e);
             setLoading(false);
-        });
-    },[setEvents]);
+        })
+    },[setEvents, setLoading]);
 
     if(loading){
-        return <h1>Loading...</h1>
+        return <Loading />
     }
     if(events.length == 0){
         return (

@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import EventCard from "./EventCard";
-
+import Loading from "./Loading";
 
 const MyEvents = ({ user }) => {
     const [events, setEvents] = useState([]);
@@ -18,7 +18,9 @@ const MyEvents = ({ user }) => {
     }, [setEvents, setLoading]);
 
     if(loading){
-        return <h1>Loading...</h1>
+        return (
+            <Loading />
+        )
     }
     if(events.length === 0){
         return (
@@ -26,7 +28,6 @@ const MyEvents = ({ user }) => {
                 <div className="target">
                     <div className="elements">
                         <h1>Nu ai adaugat niciun eveniment</h1>
-                        <a className="auth-btn login" href="/profile/add-event">Adauga un eveniment</a>
                     </div>
                 </div>
             </div>

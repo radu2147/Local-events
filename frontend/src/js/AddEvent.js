@@ -27,7 +27,7 @@ const AddEvent = () => {
             body: JSON.stringify({title, location, description, price, date})
         })
             .then(t => t.json())
-            .then(t => {
+            .then(_ => {
                 history.push('/profile/my-events');
             })
 

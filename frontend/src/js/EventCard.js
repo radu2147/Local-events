@@ -5,7 +5,7 @@ import { useHistory, Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
 
-const EventCard = ({id,title, date, price, user}) => {
+const EventCard = ({id, title, date, price, user}) => {
 
     const mesaj = price === 0.0 ? "Gratis" : price + " RON";
     const cssClass = price === 0.0 ? "price" : "price-exists";
@@ -38,6 +38,7 @@ const EventCard = ({id,title, date, price, user}) => {
                 then(_ => setSavedId(0));
             }
             else{
+                console.log(id);
                 fetch('http://localhost:8079/api/userevents/create', {
                     method: 'POST',
                     headers:{
@@ -48,7 +49,7 @@ const EventCard = ({id,title, date, price, user}) => {
                 .then(e => e.json())
                 .then(e => {
                     setSavedId(e.id);
-                })
+                });
             }
         }
         else{

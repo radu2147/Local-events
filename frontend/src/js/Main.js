@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import EventCard from "./EventCard";
+import Loading from "./Loading";
 import UserContext from "./UserContext";
 
 const Main = () => {
@@ -9,6 +10,7 @@ const Main = () => {
     const [filter, setFilter] = useState("");
     const [pret, setPret] = useState("Toate");
     const [time, setTime] = useState("Toate");
+    const [loading, setLoading] = useState(true);
 
     const [user, _] = useContext(UserContext);
 
@@ -35,10 +37,10 @@ const Main = () => {
             .then(rez => rez.json())
             .then(rez => {
                 setEvents(rez);
+                setLoading(false);
             })
             .catch((e) => console.error(e));
     }, [filter, time, pret, setEvents]);
-
     
     return (
     <div className="main">
@@ -49,11 +51,11 @@ const Main = () => {
             <div className="filter-inputs">
                 <div className="input">
                     <div className="label">Titlu</div>
-                    <input onChange={e => setFilter(e.target.value)} type="search" size="20" placeholder="E.g. Untold" defaultValue=""/>
+                    <input onChange={e => {setFilter(e.target.value); setLoading(true);}} type="search" size="20" placeholder="E.g. Untold" defaultValue=""/>
                 </div>
                 <div className="input">
                     <div className="label">Pret</div>
-                    <select size="1" onChange={e => setPret(e.target.value)}>
+                    <select size="1" onChange={e => {setPret(e.target.value); setLoading(true);}}>
                         <option>
                             Toate
                         </option>
@@ -67,7 +69,7 @@ const Main = () => {
                 </div>
                 <div className="input">
                     <div className="label">Data</div>
-                    <select onChange={e => setTime(e.target.value)}>
+                    <select onChange={e => {setTime(e.target.value); setLoading(true);}}>
                         <option>
                             Toate
                         </option>
@@ -89,9 +91,13 @@ const Main = () => {
             </div>
         </div>
         <hr/>
-        <div className="events">
-            {events.map(e => <EventCard id={e.id} title={e.title} date={e.date} price={e.price} user={user}/>)}
-        </div>
+        {
+            loading ? <Loading /> : (
+            <div className="events">
+                {events.map(e => <EventCard id={e.id} title={e.title} date={e.date} price={e.price} user={user}/>)}
+            </div>
+            )
+        }
         
     </div>
     )

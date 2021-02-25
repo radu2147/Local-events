@@ -605,3 +605,8 @@ li{
 .options .add-event:hover{
     color: #444;
 }
+
+.dark-coral{
+    background-color: #c1534d;
+    color: white;
+}

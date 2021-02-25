@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import {useParams} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 import * as Icon from "react-bootstrap-icons";
 import {formatDate} from "date-utils-2020";
+import Loading from "./Loading";
 
 const EventPage = () => {
 
@@ -10,6 +11,9 @@ const EventPage = () => {
     const mesaj = event.price === 0.0 ? "Gratis" : event.price + " RON";
     let {id} = useParams();
     const [saved, setSaved] = useState(0);
+    const [loading, setLoading] = useState(true);
+
+    let history = useHistory();
 
     useEffect(() => {
         fetch('http://localhost:8079/api/events/get/' + id)
@@ -22,7 +26,8 @@ const EventPage = () => {
                     date: e.date,
                     price: e.price,
                     location: e.location
-                })
+                });
+                setLoading(false);
             });
         fetch('http://localhost:8079/api/events/get-saved/' + id)
             .then(e => e.json())
@@ -31,11 +36,27 @@ const EventPage = () => {
             })
     }, [setEvent, setSaved]);
 
+    const deleteEvent = () => {
+        fetch('http://localhost:8079/api/events/delete/' + id, {
+                method: "DELETE",
+
+            })
+            .then(e => {
+                history.push('/profile/my-events');
+            })
+    }
+
     const date = formatDate(event.date, "  W, dd-MM-yyyy, hh:mm");
 
     let all = [];
     if(event.description){
         all = event.description.split('\n');
+    }
+
+    if(loading){
+        return (
+            <Loading />
+        )
     }
 
     return (
@@ -80,6 +101,7 @@ const EventPage = () => {
                         <h4 className="saved-by-other">
                             Salvat de alti {saved} oameni
                         </h4>
+                        {id == saved ? <button className="auth-btn dark-coral" onClick={_ => deleteEvent()}>Delete</button> : <></>}
                     </div>
                 </div>
             </div>
