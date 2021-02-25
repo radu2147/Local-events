@@ -14,6 +14,10 @@ const UserOptionsNavbar = () => {
                     Evenimentele mele
                 </li>
             </a>
+
+            <a className="auth-btn add-event" href="/profile/add-event">
+                Adauga evenimente
+            </a>
         </div>
     )
 }
