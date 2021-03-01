@@ -14,6 +14,8 @@ router.get('/get', async (req, res) => {
     }
 });
 
+
+
 router.get('/get/:id', async (req, res) => {
     try{
         let all = await controllers.getById(req.params.id);
@@ -33,7 +35,7 @@ router.get('/get-active', [verify], async(req, res) => {
         console.error(e);
         res.status(400).send({response: 'fail'});
     }
-})
+});
 
 router.post('/create', async (req, res) => {
     try{

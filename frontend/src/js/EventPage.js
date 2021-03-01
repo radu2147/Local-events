@@ -4,6 +4,28 @@ import {useHistory, useParams} from "react-router-dom";
 import * as Icon from "react-bootstrap-icons";
 import {formatDate} from "date-utils-2020";
 import Loading from "./Loading";
+import { useContext } from "react";
+import UserContext from "./UserContext";
+
+const interval = ({date, endDate}) =>{
+    if(!endDate){
+        return formatDate(date, "  W, dd-MM-yyyy, hh:mm");
+    }
+    let startMonth = formatDate(date, "MM");
+    let endMonth = "";
+    let day = formatDate(date, "dd");
+    let endDay = "";
+    let hour = formatDate(date, "hh:mm");
+    let weekStart = formatDate(date, "W");
+    let weekEnd = formatDate(endDate, "W");
+    endMonth = formatDate(endDate, "MM");
+    endDay = formatDate(endDate, "dd");
+    if(startMonth == endMonth){
+        return weekStart + " " + day + " - " + weekEnd + " " + endDay + "." + startMonth + ", " + hour;
+    }
+    return day + " " + startMonth + " - " + endDay + " " + endMonth + ", " + hour;
+} 
+
 
 const EventPage = () => {
 
@@ -11,6 +33,8 @@ const EventPage = () => {
     const mesaj = event.price === 0.0 ? "Gratis" : event.price + " RON";
     let {id} = useParams();
     const [saved, setSaved] = useState(0);
+    let [user, _] = useContext(UserContext);
+    const [links, setLinks] = useState(false);
     const [loading, setLoading] = useState(true);
 
     let history = useHistory();
@@ -25,16 +49,21 @@ const EventPage = () => {
                     description: e.description,
                     date: e.date,
                     price: e.price,
-                    location: e.location
+                    location: e.location,
+                    link1: e.link1,
+                    link2: e.link2,
+                    userid: e.userid,
+                    endDate: e.endDate
                 });
                 setLoading(false);
+                setLinks(e.link1 != null || e.link2 != null);
             });
         fetch('http://localhost:8079/api/events/get-saved/' + id)
             .then(e => e.json())
             .then(e => {
                 setSaved(e.savings);
             })
-    }, [setEvent, setSaved]);
+    }, [setEvent, setSaved, setLinks]);
 
     const deleteEvent = () => {
         fetch('http://localhost:8079/api/events/delete/' + id, {
@@ -46,7 +75,11 @@ const EventPage = () => {
             })
     }
 
-    const date = formatDate(event.date, "  W, dd-MM-yyyy, hh:mm");
+    const updateEvent = () => {
+        history.push('/update-event/' + id);
+    }
+
+    const date = interval(event);
 
     let all = [];
     if(event.description){
@@ -85,15 +118,25 @@ const EventPage = () => {
                     <div className="event-description-text">
                         <h1>Descriere</h1>
                         {all.map(e => <><h4>{e}</h4><br/></>)}
-                        <h1>Linkuri:</h1>
-                        <h4>
-                            <a href="https://www.facebook.com/radu.baston.7/">
-                                https://www.facebook.com/radu.baston.7/
-                            </a>
-                        </h4>
+                        {links ? <h1>Linkuri:</h1> : <></>}
+                            {event.link1 != null ? (
+                                <h4>
+                                <a href={event.link1}>
+                                    {event.link1}
+                                </a>
+                                </h4>
+                            ) : <></>}
+                            {event.link2 != null ? (
+                                <h4>
+                                <a href={event.link2}>
+                                    {event.link2}
+                                </a>
+                                </h4>
+                            ) : <></>}
+                        
                         <br/>
                     </div>
-                    <div>
+                    <div className="event-menu">
                         <div className="date">
                             <Icon.GeoAlt color="orange"/>
                             {event.location}
@@ -101,7 +144,8 @@ const EventPage = () => {
                         <h4 className="saved-by-other">
                             Salvat de alti {saved} oameni
                         </h4>
-                        {id == saved ? <button className="auth-btn dark-coral" onClick={_ => deleteEvent()}>Delete</button> : <></>}
+                        {user && user.id == event.userid ? <button className="auth-btn dark-coral extended" onClick={_ => deleteEvent()}>Delete</button> : <></>}
+                        {user && user.id == event.userid ? <button className="auth-btn dark-coral extended" onClick={_ => updateEvent()}>Update</button> : <></>}
                     </div>
                 </div>
             </div>

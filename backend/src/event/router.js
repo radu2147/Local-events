@@ -114,13 +114,15 @@ router.get('/filter', async(req, res) => {
 
 router.post('/create',[verifyMiddleware], async (req, res) => {
     try{
-        console.log(req.body, req.user);
         let all = await controllers.create({
             title: req.body.title, 
             description: req.body.description,
             date: req.body.date,
             price: req.body.price,
             userid: req.user.id,
+            link1: req.body.link1,
+            link2: req.body.link2,
+            endDate: req.body.endDate,
             location: req.body.location
         });
         res.status(200).send(all);

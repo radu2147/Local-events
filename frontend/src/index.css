@@ -610,3 +610,17 @@ li{
     background-color: #c1534d;
     color: white;
 }
+
+.event-menu{
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: 1fr;
+    height: 400px;
+    align-items: center;
+}
+
+.extended{
+    padding-left: 35px;
+    padding-right: 35px;
+    margin-left: 15px;;
+}

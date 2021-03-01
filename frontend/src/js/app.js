@@ -12,6 +12,7 @@ import Navbar from "./Navbar";
 import { decodeToken, isExpired } from "react-jwt";
 import Profile from "./Profile";
 import EventPage from "./EventPage";
+import UpdateEvent from "./UpdateEvent";
 
 const App = () => {
 
@@ -43,6 +44,10 @@ const App = () => {
                         </Route>
                         <Route path="/profile">
                             <Profile />
+                        </Route>
+
+                        <Route path="/update-event/:id">
+                            <UpdateEvent />
                         </Route>
                         
                         <Route path="/">

@@ -1,7 +1,6 @@
-import Ract from "react";
+import React from "react";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import {eventsapi} from "../app.config"; 
 
 const AddEvent = () => {
     const [title, setTitle] = useState("");
@@ -10,6 +9,9 @@ const AddEvent = () => {
     const [price, setPrice] = useState(0);
     const [data, setDate] = useState("");
     const [hour, setHour] = useState("");
+    const [endDate, setEndDate] = useState("");
+    const [link1, setLink1] = useState("");
+    const [link2, setLink2] = useState("");
 
     const history = useHistory();
     const token = window.localStorage.getItem('token');
@@ -24,7 +26,7 @@ const AddEvent = () => {
                 'Content-Type': 'application/json',
                 authorization: "Bearer " + token
             },
-            body: JSON.stringify({title, location, description, price, date})
+            body: JSON.stringify({title, location, description, price, date, endDate, link1, link2})
         })
             .then(t => t.json())
             .then(_ => {
@@ -63,8 +65,20 @@ const AddEvent = () => {
                     <input required type="date" onChange={ e => setDate(e.target.value) } placeholder="LL/ZZ/AAAA" maxLength="20"/>
                 </div>
                 <div className="input-login">
-                    <h6><b>Ora*</b></h6>
+                    <h6><b>Data sfarsit</b></h6>
+                    <input required type="date" onChange={ e => setEndDate(e.target.value) } placeholder="LL/ZZ/AAAA" maxLength="20"/>
+                </div>
+                <div className="input-login">
+                    <h6><b>Ora evenimentului*</b></h6>
                     <input required type="text" onChange={ e => setHour(e.target.value) } placeholder="HH:MM" maxLength="5"/>
+                </div>
+                <div className="input-login">
+                    <h6><b>Link 1</b></h6>
+                    <input required type="text" onChange={ e => setLink1(e.target.value) } placeholder="Aa" maxLength="100"/>
+                </div>
+                <div className="input-login">
+                    <h6><b>Link 2</b></h6>
+                    <input required type="text" onChange={ e => setLink2(e.target.value) } placeholder="Aa" maxLength="100"/>
                 </div>
                 <button className="auth-btn login" value="submit">Adauga eveniment</button>
             </form>

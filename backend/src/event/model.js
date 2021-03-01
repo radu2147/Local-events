@@ -15,6 +15,19 @@ const Event = sequelize.define('events', {
         type: DataTypes.DATE,
         allowNull: false
     },
+    endDate: {
+        type: DataTypes.DATE,
+        allowNull: true
+    },
+    link1:{
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+
+    link2:{
+        type: DataTypes.STRING,
+        allowNull: true
+    },
 
     title: {
         type: DataTypes.STRING,
