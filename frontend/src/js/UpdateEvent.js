@@ -107,7 +107,7 @@ const UpdateEvent = () => {
                 </div>
                 <div className="input-login">
                     <h6><b>Data sfarsit</b></h6>
-                    <input required type="date" onChange={ e => setEndDate(e.target.value) } value={endDate} placeholder="LL/ZZ/AAAA" maxLength="20"/>
+                    <input type="date" onChange={ e => setEndDate(e.target.value) } value={endDate} placeholder="LL/ZZ/AAAA" maxLength="20"/>
                     <h6 className="error-text">{dateError}</h6>
                 </div>
                 <div className="input-login">
