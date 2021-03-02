@@ -35,14 +35,6 @@ const Profile = () => {
             <AddEvent />
         </div>
     )
-
-    if(window.location.pathname === '/profile/update-event')
-        return (
-            <div>
-                <UserOptionsNavbar />
-                <UpdateEvent />
-            </div>
-        )
 }
 
 export default Profile;

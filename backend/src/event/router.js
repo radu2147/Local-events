@@ -7,6 +7,7 @@ const usereventcontrollres = require('../userevents/controller');
 const {Op} = require('sequelize');
 const {DateTime} = require('dateutils');
 const [verifyMiddleware, _, __] = require('../auth');
+const { pageSize } = require('../constants');
 
 router.get('/get', async(req, res) => {
     try{
@@ -19,16 +20,29 @@ router.get('/get', async(req, res) => {
     }
 });
 
-router.get('/get-saved-events', [verifyMiddleware], async(req, res) => {
+router.get('/get-paged/:page', async (req, res) => {
+    try{
+        let all = await controllers.getByPage(req.params.page);
+        res.status(200).send({ pageSize, events:all });
+    }
+    catch(e){
+        console.error(e);
+        res.status(404).send({response: "fail"});
+    }
+});
+
+
+
+router.get('/get-saved-events/:page', [verifyMiddleware], async(req, res) => {
     try{
         let final = {userId: req.user.id};
-        let saved = await usereventcontrollres.filter(final);
+        let saved = await usereventcontrollres.filterAllPaged(final, req.params.page);
         let all = []
         for(const el in saved){
             let elem = await controllers.getById(saved[el].dataValues.eventId);
             all.push(elem);
         }
-        res.status(200).send(all);
+        res.status(200).send({pageSize, events: all});
     }
     catch(e){
         console.error(e);
@@ -110,7 +124,35 @@ router.get('/filter', async(req, res) => {
     catch(e){
         console.error(e);
     }
-})
+});
+
+router.get('/filter-paged', async(req, res) => {
+    try{
+        let url = parse(req.url, true);
+        let data = url.query;
+        let final = {};
+
+        if(data.title)
+            final.title = {[Op.substring]: data.title};
+
+        if(data.time === 'Astazi' || data.time === 'Saptamana aceasta' || data.time === 'Luna aceasta' || data.time === 'Mai tarziu')
+            final.date = timeObjectGenerator(data.time);
+
+        if(data.price === 'Gratis' || data.price === 'Cu plata'){
+            final.price = priceObjectCreator(data.price);
+        }
+        if(data.userid){
+            final.userid = data.userid;
+        }
+        
+        let all = await controllers.filterAllPaged(final, data.page);
+
+        res.status(200).send({pageSize, events : all});
+    }
+    catch(e){
+        console.error(e);
+    }
+});
 
 router.post('/create',[verifyMiddleware], async (req, res) => {
     try{

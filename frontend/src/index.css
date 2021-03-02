@@ -624,3 +624,13 @@ li{
     padding-right: 35px;
     margin-left: 15px;;
 }
+
+.pagination{
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    grid-gap: 15px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    font-size: 22px;
+}

@@ -17,9 +17,6 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 // parse application/json
 app.use(bodyParser.json())
-app.get('/test', [middleware], (req, res) => {
-    res.status(200).send({message: "Hello World!"});
-})
 app.post('/signin', signin);
 app.post('/extend-access', extendAccess);
 
