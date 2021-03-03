@@ -41,6 +41,32 @@ const verifyMiddleware = async function(req, res, next){
     next();
 }
 
+const verifyAdminMiddleware = async function(req, res, next){
+    let auth = req.headers.authorization;
+    if(!auth){
+        res.status(403).send({response: 'no token'});
+        return;
+    }
+    let token = auth.split('Bearer ')[1];
+    if(!token){
+        res.status(403).send({response: 'no token'});
+        return;
+    }
+    try{
+        let data = await verifyToken(token);
+        req.user = (await User.findOne({where: {id: data.id}})).dataValues;
+        if(!req.user.isAdmin){
+            throw new Exception("No admin");
+        }
+    }
+    catch(e){
+        console.error(e);
+        res.status(403).send({response: 'invalid token'});
+    }
+    
+    next();
+}
+
 const signin = async (req, res) => {
     if(!req.body.username || !req.body.password){
         res.status(401).send({response: 'no username or password'});
@@ -78,4 +104,4 @@ const extendAccess = async (req, res) => {
     }
 }
 
-module.exports = [verifyMiddleware, signin, extendAccess];
+module.exports = [verifyMiddleware, signin, extendAccess, verifyAdminMiddleware];

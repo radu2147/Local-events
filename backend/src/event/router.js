@@ -183,7 +183,7 @@ router.post('/create',[verifyMiddleware], async (req, res) => {
     }
 });
 
-router.delete('/delete/:id', async (req, res) => {
+router.delete('/delete/:id',[verifyMiddleware], async (req, res) => {
     try{
         let all = await controllers.delete(req.params.id);
         res.status(200).send(all);
@@ -194,7 +194,7 @@ router.delete('/delete/:id', async (req, res) => {
     }
 })
 
-router.put('/update', async(req, res) => {
+router.put('/update',[verifyMiddleware], async(req, res) => {
     try{
         if(!req.body.endDate){
             req.body.endDate = null;
@@ -208,7 +208,7 @@ router.put('/update', async(req, res) => {
     }
 });
 
-router.get('/get-saved/:id', async(req, res) => {
+router.get('/get-saved/:id',[verifyMiddleware], async(req, res) => {
     try{
         let all = await usereventcontrollres.filter({eventId: req.params.id});
         res.status(200).send({savings: all.length});
