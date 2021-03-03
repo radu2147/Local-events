@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import EventCard from "./EventCard";
 import Loading from "./Loading";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const SavedEvents = ({ user }) => {
     const [loading, setLoading] = useState(true);
     const [events, setEvents] = useState([]);
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(0);
+
+    let history = useHistory();
 
     useEffect(() => {
         fetch('http://localhost:8079/api/events/get-saved-events/' + page, {
@@ -21,6 +23,10 @@ const SavedEvents = ({ user }) => {
             setEvents(e.events);
             setPageSize(e.pageSize)
             setLoading(false);
+        })
+        .catch(_ => {
+            history.push('/login');
+            window.location.reload();
         })
     },[setEvents, setLoading, page]);
 

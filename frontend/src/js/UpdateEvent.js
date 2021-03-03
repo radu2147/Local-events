@@ -30,6 +30,10 @@ const UpdateEvent = () => {
 
     const history = useHistory();
     const token = window.localStorage.getItem('token');
+    if(!token){
+        history.push('/login');
+        window.location.reload();
+    }
 
     const submit = (e) => {
         e.preventDefault();

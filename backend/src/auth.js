@@ -32,10 +32,12 @@ const verifyMiddleware = async function(req, res, next){
     try{
         let data = await verifyToken(token);
         req.user = (await User.findOne({where: {id: data.id}})).dataValues;
+        
     }
     catch(e){
         console.error(e);
-        res.status(403).send({response: 'invalid token'});
+        return res.status(403).send({response: 'invalid token'});
+        
     }
     
     next();
@@ -61,7 +63,7 @@ const verifyAdminMiddleware = async function(req, res, next){
     }
     catch(e){
         console.error(e);
-        res.status(403).send({response: 'invalid token'});
+        return res.status(403).send({response: 'invalid token'});
     }
     
     next();

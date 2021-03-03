@@ -11,6 +11,9 @@ import UserOptionsNavbar from "./UserOptionsNavbar";
 
 const Profile = () => {
     const [user, _] = useContext(UserContext);
+    let history = useHistory();
+
+    if(user){
     
     if(window.location.pathname === "/profile/saved"){
         return (
@@ -35,6 +38,9 @@ const Profile = () => {
             <AddEvent />
         </div>
     )
+    }
+    history.push('/login');
+    window.location.reload();
 }
 
 export default Profile;

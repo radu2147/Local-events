@@ -18,6 +18,9 @@ const MyEvents = ({ user }) => {
                 setEvents(e.events);
                 setPageSize(e.pageSize);
                 setLoading(false);
+            }).catch(_ => {
+                history.push('/login');
+                window.location.reload();
             });
     }, [page, setEvents, setLoading]);
 
