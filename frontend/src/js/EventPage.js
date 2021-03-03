@@ -60,7 +60,12 @@ const EventPage = () => {
                 setLoading(false);
                 setLinks(e.link1 != null || e.link2 != null);
             });
-        fetch('http://localhost:8079/api/events/get-saved/' + id)
+        fetch('http://localhost:8079/api/events/get-saved/' + id, {
+            headers:{
+                "Content-Type": "application/json",
+                authorization: "Bearer " + window.localStorage.getItem('token')
+            }
+        })
             .then(e => e.json())
             .then(e => {
                 setSaved(e.savings);
@@ -70,7 +75,10 @@ const EventPage = () => {
     const deleteEvent = () => {
         fetch('http://localhost:8079/api/events/delete/' + id, {
                 method: "DELETE",
-
+                headers:{
+                    "Content-Type": "application/json",
+                    authorization: "Bearer " + window.localStorage.getItem('token')
+                }
             })
             .then(e => {
                 history.push('/profile/my-events');

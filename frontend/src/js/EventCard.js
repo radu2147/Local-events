@@ -86,9 +86,15 @@ const EventCard = ({id, title, date, price, user, pathfile}) => {
                     <div className={cssClass}>
                         {mesaj}
                     </div>
+                    {user ? 
                     <a href={window.location.pathname} onClick={save}>
                         {savedid > 0 ? <Icon.HeartFill color="red" size="25px" /> :<Icon.Heart color="red" size="25px"/>}
                     </a>
+                    :
+                    <a href="/login">
+                        <Icon.Heart color="red" size="25px" />
+                    </a>
+                    }
                 </div>
             </div>
     )

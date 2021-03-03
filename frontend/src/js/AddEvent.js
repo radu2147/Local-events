@@ -3,6 +3,16 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Axios from "axios";
 
+const validateDate = (dateStart, dateEnd) => {
+    if(!dateEnd) return true;
+    return dateStart < dateEnd;
+}
+
+const validateHour = (hour) => {
+    const args = hour.split(':');
+    return args[0] < 24 && args[0] >= 0 && args[1] < 60 && args[1] >= 0;
+}
+
 const AddEvent = () => {
     const [title, setTitle] = useState("");
     const [location ,setLocation] = useState("");
@@ -13,6 +23,9 @@ const AddEvent = () => {
     const [endDate, setEndDate] = useState("");
     const [link1, setLink1] = useState("");
     const [link2, setLink2] = useState("");
+    
+    const [dateError, setDateError] = useState("");
+    const [hourError, setHourError] = useState("");
 
     const [file, setFile] = useState(null);
 
@@ -21,6 +34,18 @@ const AddEvent = () => {
 
     const submit = (e) => {
         e.preventDefault();
+
+        if(!validateDate(data, endDate)){
+            setDateError("Data de sfarsit nu poate fi inainte de data de inceput");
+            return;
+        };
+        if(!validateHour(hour)){
+            setHourError("Ora incorecta");
+            return;
+        }
+
+        setDateError("");
+        setHourError("");
 
         const formData = new FormData();
         formData.append('file', file);
@@ -42,6 +67,7 @@ const AddEvent = () => {
                         .then(t => t.json())
                         .then(_ => {
                             history.push('/profile/my-events');
+                            window.location.reload(false);
                         })
                     });
         }
@@ -97,10 +123,12 @@ const AddEvent = () => {
                 <div className="input-login">
                     <h6><b>Data sfarsit</b></h6>
                     <input type="date" onChange={ e => setEndDate(e.target.value) } placeholder="LL/ZZ/AAAA" maxLength="20"/>
+                    <h6 className="error-text">{dateError}</h6>
                 </div>
                 <div className="input-login">
                     <h6><b>Ora evenimentului*</b></h6>
                     <input required type="text" onChange={ e => setHour(e.target.value) } placeholder="HH:MM" maxLength="5"/>
+                    <h6 className="error-text">{hourError}</h6>
                 </div>
                 <div className="input-login">
                     <h6><b>Link 1</b></h6>

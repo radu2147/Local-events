@@ -208,7 +208,7 @@ router.put('/update',[verifyMiddleware], async(req, res) => {
     }
 });
 
-router.get('/get-saved/:id',[verifyMiddleware], async(req, res) => {
+router.get('/get-saved/:id', [verifyMiddleware], async(req, res) => {
     try{
         let all = await usereventcontrollres.filter({eventId: req.params.id});
         res.status(200).send({savings: all.length});
