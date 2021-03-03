@@ -156,6 +156,13 @@ router.get('/filter-paged', async(req, res) => {
 
 router.post('/create',[verifyMiddleware], async (req, res) => {
     try{
+        let endDate;
+        if(!req.body.endDate){
+            endDate = null;
+        }
+        else{
+            endDate = req.body.endDate;
+        }
         let all = await controllers.create({
             title: req.body.title, 
             description: req.body.description,
@@ -164,8 +171,9 @@ router.post('/create',[verifyMiddleware], async (req, res) => {
             userid: req.user.id,
             link1: req.body.link1,
             link2: req.body.link2,
-            endDate: req.body.endDate,
-            location: req.body.location
+            endDate,
+            location: req.body.location,
+            pathfile: req.body.pathfile
         });
         res.status(200).send(all);
     }
@@ -188,6 +196,9 @@ router.delete('/delete/:id', async (req, res) => {
 
 router.put('/update', async(req, res) => {
     try{
+        if(!req.body.endDate){
+            req.body.endDate = null;
+        }
         let all = await controllers.update(req.body);
         res.status(200).send(all);
     }

@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import Axios from "axios";
 
 const AddEvent = () => {
     const [title, setTitle] = useState("");
@@ -13,26 +14,55 @@ const AddEvent = () => {
     const [link1, setLink1] = useState("");
     const [link2, setLink2] = useState("");
 
+    const [file, setFile] = useState(null);
+
     const history = useHistory();
     const token = window.localStorage.getItem('token');
 
     const submit = (e) => {
         e.preventDefault();
-        
-        const date = data + 'T' + hour;
-        fetch('http://localhost:8079/api/events/create', {
-            method: 'POST',
-            headers:{
-                'Content-Type': 'application/json',
-                authorization: "Bearer " + token
-            },
-            body: JSON.stringify({title, location, description, price, date, endDate, link1, link2})
-        })
-            .then(t => t.json())
-            .then(_ => {
-                history.push('/profile/my-events');
-            })
 
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('upload_preset', 'n6tdyb00');
+
+        if(file){
+            Axios.post('https://api.cloudinary.com/v1_1/dgjgaz3hj/image/upload', formData)
+                .then(resp => {
+                    const date = data + 'T' + hour;
+                    const pathfile = resp.data.secure_url ? resp.data.secure_url : "";
+                    fetch('http://localhost:8079/api/events/create', {
+                            method: 'POST',
+                            headers:{
+                                'Content-Type': 'application/json',
+                                authorization: "Bearer " + token
+                            },
+                            body: JSON.stringify({title, location, description, price, date, endDate, link1, link2, pathfile})
+                        })
+                        .then(t => t.json())
+                        .then(_ => {
+                            history.push('/profile/my-events');
+                        })
+                    });
+        }
+        else{
+        
+            const date = data + 'T' + hour;
+            console.log(endDate);
+            fetch('http://localhost:8079/api/events/create', {
+                method: 'POST',
+                headers:{
+                    'Content-Type': 'application/json',
+                    authorization: "Bearer " + token
+                },
+                body: JSON.stringify({title, location, description, price, date, endDate, link1, link2})
+            })
+                .then(t => t.json())
+                .then(_ => {
+                    history.push('/profile/my-events');
+                })
+        
+        }
 
     }
 
@@ -66,7 +96,7 @@ const AddEvent = () => {
                 </div>
                 <div className="input-login">
                     <h6><b>Data sfarsit</b></h6>
-                    <input required type="date" onChange={ e => setEndDate(e.target.value) } placeholder="LL/ZZ/AAAA" maxLength="20"/>
+                    <input type="date" onChange={ e => setEndDate(e.target.value) } placeholder="LL/ZZ/AAAA" maxLength="20"/>
                 </div>
                 <div className="input-login">
                     <h6><b>Ora evenimentului*</b></h6>
@@ -74,11 +104,15 @@ const AddEvent = () => {
                 </div>
                 <div className="input-login">
                     <h6><b>Link 1</b></h6>
-                    <input required type="text" onChange={ e => setLink1(e.target.value) } placeholder="Aa" maxLength="100"/>
+                    <input type="text" onChange={ e => setLink1(e.target.value) } placeholder="Aa" maxLength="100"/>
                 </div>
                 <div className="input-login">
                     <h6><b>Link 2</b></h6>
-                    <input required type="text" onChange={ e => setLink2(e.target.value) } placeholder="Aa" maxLength="100"/>
+                    <input type="text" onChange={ e => setLink2(e.target.value) } placeholder="Aa" maxLength="100"/>
+                </div>
+                <div className="input-login">
+                    <h6><b>Poza</b></h6>
+                    <input type="file" onChange={e => {setFile(e.target.files[0]); console.log(e.target.files[0]);}}/>
                 </div>
                 <button className="auth-btn login" value="submit">Adauga eveniment</button>
             </form>

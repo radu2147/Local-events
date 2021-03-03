@@ -41,7 +41,7 @@ const SavedEvents = ({ user }) => {
     return (
         <div className="main-canvas">
             <div className="events">
-                {events.map(e => <EventCard id={e.id} title={e.title} date={e.date} price={e.price} user={user}/>)}
+                {events.map(e => <EventCard id={e.id} title={e.title} date={e.date} price={e.price} user={user} pathfile={e.pathfile}/>)}
             </div>
             <div className="pagination">
                 {page > 1 ? (

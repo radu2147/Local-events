@@ -2,10 +2,11 @@ import React from "react";
 import * as Icon from "react-bootstrap-icons";
 import {formatDate} from "date-utils-2020";
 import { useHistory, Link } from "react-router-dom";
+import { Image } from "cloudinary-react";
 import { useEffect } from "react";
 import { useState } from "react";
 
-const EventCard = ({id, title, date, price, user}) => {
+const EventCard = ({id, title, date, price, user, pathfile}) => {
 
     const mesaj = price === 0.0 ? "Gratis" : price + " RON";
     const cssClass = price === 0.0 ? "price" : "price-exists";
@@ -63,7 +64,12 @@ const EventCard = ({id, title, date, price, user}) => {
             <div className="event-card">
                 
                 <a href={path}>
-                    <img className="alt" src={require('../../static/rabbit.jpg')}/>
+                    {
+                        pathfile === null ? 
+                        <img className="alt" src={require('../../static/rabbit.jpg')}/> :
+                        <Image cloudName="dgjgaz3hj" publicId={pathfile} />
+                    }
+                    
                 </a>
                 <div className="small-description">
                     <div className="date">

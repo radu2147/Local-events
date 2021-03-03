@@ -14,11 +14,7 @@ const Main = () => {
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(0);
-    const [user, _] = useContext(UserContext);
-
-    console.log(events.length);
-
-    
+    const [user, _] = useContext(UserContext);    
 
     useEffect(() => {
         let url;
@@ -100,7 +96,7 @@ const Main = () => {
         {
             loading ? <Loading /> : (
             <div className="events">
-                {events.map(e => <EventCard id={e.id} title={e.title} date={e.date} price={e.price} user={user}/>)}
+                {events.map(e => <EventCard id={e.id} title={e.title} date={e.date} price={e.price} user={user} pathfile={e.pathfile}/>)}
             </div>
             )
         }

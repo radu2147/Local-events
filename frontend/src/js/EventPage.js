@@ -5,6 +5,7 @@ import * as Icon from "react-bootstrap-icons";
 import {formatDate} from "date-utils-2020";
 import Loading from "./Loading";
 import { useContext } from "react";
+import { Image } from "cloudinary-react";
 import UserContext from "./UserContext";
 
 const interval = ({date, endDate}) =>{
@@ -53,7 +54,8 @@ const EventPage = () => {
                     link1: e.link1,
                     link2: e.link2,
                     userid: e.userid,
-                    endDate: e.endDate
+                    endDate: e.endDate,
+                    pathfile: e.pathfile
                 });
                 setLoading(false);
                 setLinks(e.link1 != null || e.link2 != null);
@@ -96,7 +98,8 @@ const EventPage = () => {
         <div className="main-canvas space-top">
             <div className="event-main">
                 <div className="event-page-card">
-                    <img src={require('../../static/rabbit.jpg')}/>
+                    {event.pathfile === null ? <img src={require('../../static/rabbit.jpg')}/> : <Image cloudName="dgjgaz3hj" publicId={event.pathfile} />}
+                    
                     <div className="event-page-small-description">
                         <div className="date">
                             <Icon.Clock color="orange"/>

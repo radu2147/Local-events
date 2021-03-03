@@ -47,6 +47,10 @@ const Event = sequelize.define('events', {
         type:DataTypes.FLOAT,
         defaultValue: 0.0,
     },
+    pathfile:{
+        type: DataTypes.STRING,
+        allowNull: true
+    },
     userid:{
         type:DataTypes.BIGINT,
         defaultValue: 1,
