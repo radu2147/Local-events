@@ -4,7 +4,6 @@ const controllers = require("./controller");
 
 const router = Router();
 
-
 router.get('/get', async (req, res) => {
     try{
         let all = await controllers.getAll();
