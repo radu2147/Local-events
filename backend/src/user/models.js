@@ -1,6 +1,7 @@
 const [user, host, database, password, port] = require('../settings');
 
 const { Sequelize, Model, DataTypes } = require('sequelize');
+const bcrypt = require('bcrypt');
 
 const sequelize = new Sequelize(database, user, password, {
     host,
@@ -27,8 +28,9 @@ User.init({
     modelName: "users"
 })
 
-User.checkPassword = (pass1, pass) => {
-    return pass === pass1;
+User.checkPassword = async (pass, dbpass) => {
+    let resp = await bcrypt.compare(pass, dbpass);
+    return resp;
 }
 
 User.sync();

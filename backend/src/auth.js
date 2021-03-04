@@ -76,7 +76,7 @@ const signin = async (req, res) => {
     }
     try{
         let user = (await User.findOne({where: {username: req.body.username}})).dataValues;
-        if(!User.checkPassword(user.password, req.body.password)){
+        if(!(await User.checkPassword(req.body.password, user.password))){
             res.status(401).send({response: 'incorrect password'});
             return;
         }

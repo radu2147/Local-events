@@ -1,6 +1,9 @@
 const { Router } = require("express");
 const controllers = require("./controllers");
 const [verify,_,__, verifyAdminMiddleware] = require('../auth');
+const bcrypt = require('bcrypt');
+const salt = 10;
+
 const router = Router();
 
 router.get('/get', async (req, res) => {
@@ -39,9 +42,10 @@ router.get('/get-active', [verify], async(req, res) => {
 
 router.post('/create', async (req, res) => {
     try{
+        let password = await bcrypt.hash(req.body.password, salt);
         let all = await controllers.create({
             username: req.body.username, 
-            password: req.body.password
+            password
         });
         res.status(200).send(all);
     }
